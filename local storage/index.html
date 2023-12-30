@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Information Form</title>
+</head>
+<body>
+
+    <h2>User Information Form</h2>
+
+    <form id="userForm">
+        <label for="userName">Name:</label>
+        <input type="text" id="userName" name="userName" required>
+
+        <br>
+
+        <label for="userAge">Age:</label>
+        <input type="number" id="userAge" name="userAge" required>
+
+        <br>
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <button>show data</button>
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var userName = document.getElementById('userName').value;
+            var userAge = document.getElementById('userAge').value;
+
+            // Create an object to store user data
+            var userData = {
+                name: userName,
+                age: userAge
+            };
+
+            // Convert the object to a JSON string and store it in local storage
+            localStorage.setItem('userData', JSON.stringify(userData));
+
+            // Optionally, you can provide feedback to the user
+            alert('User data has been stored in local storage.');
+
+            // Clear the form after submission
+            document.getElementById('userForm').reset();
+        });
+        document.getElementById('retrieveData').addEventListener('click', function() {
+            // Retrieve the JSON string from local storage
+            var storedData = localStorage.getItem('userData');
+
+            // Parse the JSON string to an object
+            var userData = JSON.parse(storedData);
+
+            // Display the data
+            var displayDiv = document.getElementById('displayData');
+            displayDiv.innerHTML = 'Stored User Data:<br>' +
+                                  'Name: ' + userData.name + '<br>' +
+                                  'Age: ' + userData.age;
+        });
+    </script>
+
+
+
+</body>
+</html>
